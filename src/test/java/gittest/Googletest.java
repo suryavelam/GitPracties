@@ -15,28 +15,46 @@ import org.testng.annotations.Test;
 
 public class Googletest {
 
-	
+	static WebDriver wd ;
 	@Test
 	public void chrome() throws IOException {
 		
-		WebDriver wd = new ChromeDriver();
+		wd = new ChromeDriver();
 		
 		wd.manage().window().maximize();
 		
 		wd.get("https://www.google.com/");
 		
-		WebElement search =wd.findElement(By.name("q"));
+		//WebElement search =wd.findElement(By.name("q"));
 		
-		search.sendKeys("chennai");
+		//search.sendKeys("chennai");
 		
-		search.sendKeys(Keys.ENTER);
+		//search.sendKeys(Keys.ENTER);
 		//search.submit();
+		String xpsearch ="//textarea[@name='q']";
+		sendkey(xpsearch, "chennai");
+		
 		
 		
 		File src =((TakesScreenshot)wd).getScreenshotAs(OutputType.FILE);
 		
 		FileHandler.copy(src, new File("C:\\Users\\pcx\\eclipse-workspace\\GitPractics\\Screenshort\\google.png"));
 		
+		
+	}
+	
+	public static WebElement elementbyxpath(String ele) {
+		
+		return wd.findElement(By.xpath(ele));
+		
+		
+	}
+	
+	public static void sendkey( String ele ,String Strtext) {
+		
+		WebElement newele= 	elementbyxpath(ele);
+		
+		newele.sendKeys(Strtext);
 		
 	}
 }
